@@ -1,0 +1,317 @@
+/* Global Variables */
+:root {
+    --accent-color: #40b6ff;
+    --bg-color: #1a1a1a;
+    --bg-light: #2a2a2a;
+    --bg-lighter: #3a3a3a;
+    --text-color: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --border-color: #444444;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --error-color: #f44336;
+}
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+/* Main Layout */
+#app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background-color: var(--bg-light);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo h1 {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.car-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.category-nav {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.nav-item {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+    background-color: var(--bg-lighter);
+}
+
+.nav-item.active {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+.action-buttons {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.action-buttons button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--bg-lighter);
+    color: var(--text-color);
+    transition: background-color 0.2s;
+}
+
+.action-buttons button:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+#save-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+#reset-btn {
+    background-color: var(--warning-color);
+    color: #fff;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.category-container {
+    margin-bottom: 1.5rem;
+}
+
+.category-container h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Fields Grid */
+.fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.field-item {
+    background-color: var(--bg-light);
+    border-radius: 4px;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+}
+
+.field-item label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.field-item input[type="range"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    background: var(--bg-lighter);
+    border-radius: 4px;
+    outline: none;
+}
+
+.field-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.field-item input[type="number"] {
+    width: 100%;
+    background: var(--bg-lighter);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.range-value {
+    text-align: right;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Flags Container */
+.flags-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1rem;
+}
+
+.flag-section {
+    background-color: var(--bg-light);
+    border-radius: 4px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.flag-section h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.flag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+}
+
+.flag-item {
+    display: flex;
+    align-items: center;
+}
+
+.flag-item input[type="checkbox"] {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.flag-item label {
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+/* Vector Inputs */
+.vector-inputs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.vector-inputs input {
+    width: 100%;
+    background: var(--bg-lighter);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.vector-labels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.vector-labels span {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    #app {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .category-nav {
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .nav-item {
+        border-bottom: none;
+        border-right: 1px solid var(--border-color);
+        white-space: nowrap;
+    }
+    
+    .action-buttons {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .main-content {
+        height: calc(100% - 150px);
+    }
+}
+
+/* Mobile optimization (Steam Deck) */
+@media screen and (max-width: 360px) {
+    .fields-grid, .flags-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .flag-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+} 

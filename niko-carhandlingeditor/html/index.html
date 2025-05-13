@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niko's Car Handling Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="sidebar">
+            <div class="logo">
+                <h1>Car Handling Editor</h1>
+                <div class="car-info">
+                    <span id="car-model">Unknown Model</span>
+                </div>
+            </div>
+            <div class="category-nav">
+                <div class="nav-item active" data-category="Dynamics">Dynamics</div>
+                <div class="nav-item" data-category="Traction">Traction</div>
+                <div class="nav-item" data-category="Suspension">Suspension</div>
+                <div class="nav-item" data-category="Damage">Damage</div>
+                <div class="nav-item" data-category="Flags">Flags</div>
+            </div>
+            <div class="action-buttons">
+                <button id="save-btn">Save</button>
+                <button id="reset-btn">Reset</button>
+                <button id="close-btn">Close</button>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="category-container" id="Dynamics">
+                <h2>Dynamics</h2>
+                <div class="fields-grid" id="Dynamics-fields"></div>
+            </div>
+            <div class="category-container hidden" id="Traction">
+                <h2>Traction</h2>
+                <div class="fields-grid" id="Traction-fields"></div>
+            </div>
+            <div class="category-container hidden" id="Suspension">
+                <h2>Suspension</h2>
+                <div class="fields-grid" id="Suspension-fields"></div>
+            </div>
+            <div class="category-container hidden" id="Damage">
+                <h2>Damage</h2>
+                <div class="fields-grid" id="Damage-fields"></div>
+            </div>
+            <div class="category-container hidden" id="Flags">
+                <h2>Flags</h2>
+                <div class="flags-container" id="Flags-fields"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
