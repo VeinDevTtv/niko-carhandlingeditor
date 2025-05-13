@@ -32,11 +32,16 @@ body, html {
 #app {
     width: 100%;
     height: 100%;
-    display: flex;
+    display: none; /* Hidden by default */
     background-color: var(--bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     overflow: hidden;
+}
+
+/* Show the app when visible class is added */
+#app.visible {
+    display: flex;
 }
 
 /* Sidebar */
@@ -269,6 +274,25 @@ body, html {
     text-align: center;
     font-size: 0.7rem;
     color: var(--text-muted);
+}
+
+/* Animation for showing/hiding */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+#app.visible {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#app.hiding {
+    animation: fadeOut 0.3s ease-in-out;
 }
 
 /* Responsive Design */

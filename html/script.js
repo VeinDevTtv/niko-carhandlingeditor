@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const data = event.data;
         
         if (data.action === 'open') {
+            showUI();
             setupUI(data.data);
         }
     });
@@ -27,6 +28,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Show the UI
+function showUI() {
+    const app = document.getElementById('app');
+    app.classList.add('visible');
+    app.classList.remove('hiding');
+}
+
+// Hide the UI with animation
+function hideUI() {
+    const app = document.getElementById('app');
+    app.classList.add('hiding');
+    
+    // Remove the visible class after animation completes
+    setTimeout(() => {
+        app.classList.remove('visible');
+        app.classList.remove('hiding');
+    }, 300); // Match the animation duration in CSS
+}
 
 // Setup UI with vehicle data
 function setupUI(data) {
@@ -320,6 +340,8 @@ function resetHandling() {
 
 // Close the editor
 function closeEditor() {
+    hideUI();
+    
     fetch(`https://${GetParentResourceName()}/close`, {
         method: 'POST',
         headers: {
