@@ -9,7 +9,7 @@ A FiveM resource that allows players to modify vehicle handling parameters in re
 - Instant preview of changes in-game
 - Save and load handling configurations across server restarts
 - Permission-based access control
-- Mobile-friendly UI (works well on Steam Deck)
+- Mobi`le-friendly UI (works well on Steam Deck)
 
 ## Installation
 

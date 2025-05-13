@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.action === 'open') {
             showUI();
             setupUI(data.data);
+            console.log('Handling editor opened for vehicle: ' + data.data.model);
         }
     });
     
@@ -292,6 +293,9 @@ function GetParentResourceName() {
 
 // Send handling update to client
 function updateHandling(field, value) {
+    // Log the change
+    console.log(`Handling change: ${field} = ${value}`);
+    
     fetch(`https://${GetParentResourceName()}/update`, {
         method: 'POST',
         headers: {
@@ -307,13 +311,17 @@ function updateHandling(field, value) {
     if (field.includes('.')) {
         const [baseField, component] = field.split('.');
         currentVehicleData.handling[baseField][component] = value;
+        console.log(`Updated vector ${baseField}.${component} to ${value}`);
     } else {
         currentVehicleData.handling[field] = value;
+        console.log(`Updated ${field} to ${value}`);
     }
 }
 
 // Save handling settings
 function saveHandling() {
+    console.log('Saving handling settings for vehicle: ' + currentVehicleData.model);
+    
     fetch(`https://${GetParentResourceName()}/save`, {
         method: 'POST',
         headers: {
@@ -328,6 +336,8 @@ function saveHandling() {
 
 // Reset handling to original values
 function resetHandling() {
+    console.log('Resetting handling to original values for vehicle: ' + currentVehicleData.model);
+    
     fetch(`https://${GetParentResourceName()}/reset`, {
         method: 'POST',
         headers: {
@@ -340,12 +350,20 @@ function resetHandling() {
 
 // Close the editor
 function closeEditor() {
+    console.log('Closing handling editor');
+    
+    // First hide the UI with animation
     hideUI();
     
-    fetch(`https://${GetParentResourceName()}/close`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    // Send close message to client AFTER the animation completes
+    // This ensures SetNuiFocus(false, false) is called after UI is hidden
+    setTimeout(() => {
+        fetch(`https://${GetParentResourceName()}/close`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('NUI focus released');
+    }, 300); // Same as animation duration
 } 
