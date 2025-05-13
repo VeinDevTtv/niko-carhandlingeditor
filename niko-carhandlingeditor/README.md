@@ -18,6 +18,9 @@ A FiveM resource that allows players to modify vehicle handling parameters in re
 3. Add `ensure niko-carhandlingeditor` to your server.cfg
 4. (Optional) Configure permissions with ACE: `add_ace group.admin carhandlingeditor true`
 
+> **Note**: If you rename this resource, make sure to keep the original name in your server.cfg ensure line. 
+> Alternatively, adjust all event names in the code to match your new resource name.
+
 ## Usage
 
 1. Get in a vehicle as the driver
@@ -29,7 +32,7 @@ A FiveM resource that allows players to modify vehicle handling parameters in re
 4. Changes apply instantly for real-time testing
 5. Click "Save" to persist changes across restarts
 6. Click "Reset" to revert to original handling
-7. Click "Close" to exit the editor
+7. Click "Close" to exit the editor (or press ESC)
 
 ## Configuration
 
@@ -58,6 +61,15 @@ Config.UseOxLib = false -- Set to true if ox_lib is available for notifications
 - All changes are client-side until saved to the server
 - Includes safety limits to prevent exploits
 - Vector and flag-based handling parameters fully supported
+
+## Known Issues
+
+- Vector handling bug fixed in v1.0.1 - previous version would return 0 for all vector components
+
+## Version History
+
+- **v1.0.1**: Fixed vector handling bug, improved cross-platform compatibility, added ESC key support
+- **v1.0.0**: Initial release
 
 ## License
 

@@ -50,7 +50,7 @@ local handlingCategories = {
 
 -- Flag definitions for UI display
 local handlingFlagDefinitions = {
-    -- Handling flags (incomplete list - add more as needed)
+    -- Handling flags (complete list for bits 0-31)
     [0] = "1G_BOOST",
     [1] = "2G_BOOST",
     [2] = "NPC_ANTI_ROLL",
@@ -74,7 +74,15 @@ local handlingFlagDefinitions = {
     [20] = "USE_MAXSP_LIMIT",
     [21] = "LOW_RIDER",
     [22] = "STREET_RACER",
-    -- Additional flags would go here
+    [23] = "SWINGINGCHASSIS",
+    [24] = "EXTREME_GRIP",
+    [25] = "INCREASED_GRAVITY",
+    [26] = "DIST_EXTRA_DRAG",
+    [27] = "CASTER_FRONT_INCREASE",
+    [28] = "CASTER_FRONT_DECREASE",
+    [29] = "DRIFT_TYRES",
+    [30] = "DRIVE_BIAS_FRONT",
+    [31] = "DRIVE_BIAS_REAR"
 }
 
 -- Get all handling data for a vehicle
@@ -88,10 +96,9 @@ local function GetVehicleHandlingData(vehicle)
         for _, field in ipairs(fields) do
             -- Different getter based on field type
             if field == "vecCentreOfMassOffset" or field == "vecInertiaMultiplier" then
-                local x = GetVehicleHandlingFloat(vehicle, 'CHandlingData', field .. ".x")
-                local y = GetVehicleHandlingFloat(vehicle, 'CHandlingData', field .. ".y")
-                local z = GetVehicleHandlingFloat(vehicle, 'CHandlingData', field .. ".z")
-                data[field] = {x = x, y = y, z = z}
+                -- Get vector data properly with GetVehicleHandlingVector
+                local vec = GetVehicleHandlingVector(vehicle, 'CHandlingData', field)
+                data[field] = {x = vec.x, y = vec.y, z = vec.z}
             elseif field == "handlingFlags" or field == "damageFlags" or field == "strModelFlags" then
                 data[field] = GetVehicleHandlingInt(vehicle, 'CHandlingData', field)
             else
@@ -128,7 +135,8 @@ local function SendHandlingDataToUI(vehicle)
             hash = hash,
             handling = data,
             categories = handlingCategories,
-            flagDefinitions = handlingFlagDefinitions
+            flagDefinitions = handlingFlagDefinitions,
+            accent = Config.AccentColor
         }
     })
 end
@@ -141,11 +149,10 @@ local function ApplyHandlingChange(vehicle, field, value)
     if string.find(field, "vec") and string.find(field, ".") then
         -- Handle vector component change
         local baseField, component = field:match("(.+)%.(.+)")
-        local currentValue = {}
         
-        currentValue.x = GetVehicleHandlingFloat(vehicle, 'CHandlingData', baseField .. ".x")
-        currentValue.y = GetVehicleHandlingFloat(vehicle, 'CHandlingData', baseField .. ".y")
-        currentValue.z = GetVehicleHandlingFloat(vehicle, 'CHandlingData', baseField .. ".z")
+        -- Get current vector values properly with GetVehicleHandlingVector
+        local currentVec = GetVehicleHandlingVector(vehicle, 'CHandlingData', baseField)
+        local currentValue = {x = currentVec.x, y = currentVec.y, z = currentVec.z}
         
         currentValue[component] = value
         

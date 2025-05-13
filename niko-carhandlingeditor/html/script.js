@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup action buttons
     setupActionButtons();
+    
+    // Add ESC key listener
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeEditor();
+        }
+    });
 });
 
 // Setup UI with vehicle data
@@ -29,6 +36,11 @@ function setupUI(data) {
     
     // Update car model
     document.getElementById('car-model').textContent = data.model + ' (' + data.hash + ')';
+    
+    // Apply accent color if provided
+    if (data.accent) {
+        document.documentElement.style.setProperty('--accent-color', data.accent);
+    }
     
     // Generate fields for each category
     for (const [category, fields] of Object.entries(categories)) {
@@ -253,9 +265,14 @@ function setupActionButtons() {
     });
 }
 
+// Helper function to get the parent resource name
+function GetParentResourceName() {
+    return window.location.href.split('/')[3] || 'niko-carhandlingeditor';
+}
+
 // Send handling update to client
 function updateHandling(field, value) {
-    fetch('https://niko-carhandlingeditor/update', {
+    fetch(`https://${GetParentResourceName()}/update`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -277,7 +294,7 @@ function updateHandling(field, value) {
 
 // Save handling settings
 function saveHandling() {
-    fetch('https://niko-carhandlingeditor/save', {
+    fetch(`https://${GetParentResourceName()}/save`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -291,7 +308,7 @@ function saveHandling() {
 
 // Reset handling to original values
 function resetHandling() {
-    fetch('https://niko-carhandlingeditor/reset', {
+    fetch(`https://${GetParentResourceName()}/reset`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -303,7 +320,7 @@ function resetHandling() {
 
 // Close the editor
 function closeEditor() {
-    fetch('https://niko-carhandlingeditor/close', {
+    fetch(`https://${GetParentResourceName()}/close`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

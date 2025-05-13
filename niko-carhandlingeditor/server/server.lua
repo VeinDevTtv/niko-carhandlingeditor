@@ -5,8 +5,12 @@ local savePath = GetResourcePath(GetCurrentResourceName()) .. "/" .. Config.Save
 -- Ensure data directory exists
 CreateThread(function()
     local dataDir = GetResourcePath(GetCurrentResourceName()) .. "/data"
-    if not DoesFileExist(dataDir) then
-        os.execute('mkdir "' .. dataDir .. '"')
+    
+    -- Create directory using FiveM native API for cross-platform compatibility
+    local dirPath = savePath:match("(.+)/") or ""
+    if dirPath ~= "" then
+        -- Ensures all parent directories exist
+        CreateDirectory(dirPath)
     end
 end)
 
